@@ -19,15 +19,14 @@ public class Student {
     String address;
     String sex;
     @ManyToMany
-    List<Course> courses=new ArrayList<>();
+    List<Course> courses;
 
-    public Student(String name, LocalDate birthDate, String address, String sex, Course... courses) {
+    public Student(String name, LocalDate birthDate, String address, String sex, List<Course> courses) {
         this.name = name;
         this.birthDate = birthDate;
         this.address = address;
         this.sex = sex;
-        if (courses!=null)
-            Collections.addAll(this.courses,courses);
+        this.courses=courses;
     }
 
     public Student() {
@@ -48,6 +47,7 @@ public class Student {
         return birthDate;
     }
 
+    /*
     public void setBirthDate(String localDate) {
         if (localDate==null)
             return;
@@ -55,6 +55,10 @@ public class Student {
         this.birthDate=LocalDate.of(Integer.parseInt(str[0]),
                 Month.of(Integer.parseInt(str[1])),
                 Integer.parseInt(str[2]));
+    }
+    */
+    public void setBirthDate(LocalDate birthDate){
+        this.birthDate=birthDate;
     }
 
     public String getAddress() {

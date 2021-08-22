@@ -1,12 +1,15 @@
 package dev.patika.secondhomework.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.Entity;
+import java.util.List;
 
 @Entity
 public class GuestInstructor extends Instructor {
     double hourlySalary;
 
-    public GuestInstructor(String name, String address, long phoneNumber, double hourlySalary, Course... courses) {
+    public GuestInstructor(String name, String address, long phoneNumber, double hourlySalary, List<Course> courses) {
         super(name, address, phoneNumber, courses);
         this.hourlySalary=hourlySalary;
     }

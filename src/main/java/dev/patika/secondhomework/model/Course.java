@@ -1,17 +1,19 @@
 package dev.patika.secondhomework.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Course {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    public int id;
 
     String courseName;
     String courseCode;
     double credit;
-    @ManyToOne
+    @ManyToOne @JsonBackReference
     Instructor instructor;
 
     public Course(String courseName, String courseCode, double credit, Instructor instructor) {
@@ -25,7 +27,14 @@ public class Course {
     }
 
     //getter setter
-    public int getId(){return id;}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCourseName() {
         return courseName;

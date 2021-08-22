@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 public class EntityManagerSingleton {
     private static EntityManagerSingleton entityManagerSingleton;
     private EntityManagerFactory entityManagerFactory;
-    private static final String PERSISTENCE_NAME="";
+    private static final String PERSISTENCE_NAME="mysqlPU";
     private EntityManagerSingleton(){
         entityManagerFactory= Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
     }

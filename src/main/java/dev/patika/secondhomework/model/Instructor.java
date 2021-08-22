@@ -1,11 +1,28 @@
 package dev.patika.secondhomework.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/*@JsonTypeInfo(
+        use = JsonTypeInfo.Id.DEDUCTION,
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        visible = false)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RegularInstructor.class, name = "constantSalary"),//constantSalary Regular
+        @JsonSubTypes.Type(value = GuestInstructor.class, name = "hourlySalary")//hourlySalary Guest
+})*/
+@JsonTypeInfo(use= JsonTypeInfo.Id.DEDUCTION, defaultImpl = Course.class)
+@JsonSubTypes({
+        @JsonSubTypes.Type(GuestInstructor.class),
+        @JsonSubTypes.Type(RegularInstructor.class)
+})
 @Entity @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Instructor {
     @Id
@@ -15,15 +32,14 @@ public abstract class Instructor {
     String name;
     String address;
     long phoneNumber;
-    @OneToMany(mappedBy = "instructor")
+    @OneToMany(mappedBy = "instructor")@JsonManagedReference
     List<Course> courses=new ArrayList<>();
 
-    public Instructor(String name, String address, long phoneNumber, Course... courses) {
+    public Instructor(String name, String address, long phoneNumber, List<Course> courses) {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        if (courses!=null)
-        Collections.addAll(this.courses,courses);
+        this.courses=courses;
     }
 
     public Instructor() {

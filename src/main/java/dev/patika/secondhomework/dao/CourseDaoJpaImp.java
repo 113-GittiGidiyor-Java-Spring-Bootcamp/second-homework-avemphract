@@ -1,11 +1,11 @@
 package dev.patika.secondhomework.dao;
 
 import dev.patika.secondhomework.model.Course;
+import dev.patika.secondhomework.utils.EntityManagerSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -13,8 +13,8 @@ public class CourseDaoJpaImp implements CourseDao{
     private EntityManager entityManager;
 
     @Autowired
-    public CourseDaoJpaImp(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public CourseDaoJpaImp() {
+        this.entityManager = EntityManagerSingleton.getInstance().getEntityManager();
     }
 
     @Override
@@ -27,9 +27,11 @@ public class CourseDaoJpaImp implements CourseDao{
         return entityManager.createQuery("SELECT c FROM Course AS c WHERE c.id=:id",Course.class).setParameter("id",id).getSingleResult();
     }
 
-    @Override @Transactional
+    @Override
     public Course save(Course course) {
+        entityManager.getTransaction().begin();
         entityManager.merge(course);
+        entityManager.getTransaction().commit();
         return course;
     }
 

@@ -1,17 +1,19 @@
 package dev.patika.secondhomework.model;
 
 import javax.persistence.Entity;
+import java.util.List;
 
 @Entity
 public class RegularInstructor extends Instructor {
     double constantSalary;
 
-    public RegularInstructor(String name, String address, long phoneNumber, double constantSalary, Course... courses) {
+    public RegularInstructor(String name, String address, long phoneNumber, double constantSalary, List<Course> courses) {
         super(name, address, phoneNumber, courses);
         this.constantSalary = constantSalary;
     }
 
     public RegularInstructor() {
+        super();
     }
 
     //getter setter

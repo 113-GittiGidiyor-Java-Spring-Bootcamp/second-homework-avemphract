@@ -36,4 +36,8 @@ public class InstructorService implements BaseDao<Instructor> {
     public Instructor deleteById(int id) {
         return instructorDao.deleteById(id);
     }
+
+    public Instructor enrollCourse(int instructorId, List<Integer> courseList){
+        return instructorDao.enrollCourse(instructorId,courseList);
+    }
 }

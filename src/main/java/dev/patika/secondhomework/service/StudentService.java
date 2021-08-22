@@ -37,4 +37,8 @@ public class StudentService implements BaseService<Student> {
     public Student deleteById(int id) {
         return studentDao.deleteById(id);
     }
+
+    public Student enrollCourse(int studentId,List<Integer> courseList){
+        return studentDao.enrollCourse(studentId,courseList);
+    }
 }

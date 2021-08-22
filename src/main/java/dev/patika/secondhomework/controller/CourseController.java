@@ -25,13 +25,18 @@ public class CourseController {
     }
 
     @PostMapping("/courses")
-    public ResponseEntity<Course> saveCourse(@RequestBody Course course){
+    public ResponseEntity<? extends Course> saveCourse(@RequestBody Course course){
         return new ResponseEntity<>(courseService.save(course),HttpStatus.OK);
     }
 
     @GetMapping("/courses/{id}")
     public ResponseEntity<Course> findById(@PathVariable int id){
         return new ResponseEntity<>(courseService.findById(id),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/courses/{id}")
+    public ResponseEntity<Course> deleteById(@PathVariable int id){
+        return new ResponseEntity<>(courseService.deleteById(id),HttpStatus.OK);
     }
 
 }
